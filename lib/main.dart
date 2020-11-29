@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:relative_scale/relative_scale.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,10 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: 'Bentson',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'LoginPage'),
     );
   }
 }
@@ -30,53 +31,109 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: new BoxDecoration(color: Color(0xff004B4B)),
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Row(children: [
-              Container(
-                child: Text(
-                  "Good afternoon",
-                  style: TextStyle(
-                      color: Color(0xFF70B3C3),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32),
-                ),
-                padding: EdgeInsets.only(left: 20, bottom: 20),
-              )
-            ]),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              color: Color(0xFF003D3B),
-              child: ListTile(
-                title: Text(
-                  '96.66',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontSize: 27,
-                      fontWeight: FontWeight.w100,
-                      color: Color(0xff70B3C3)),
-                ),
-                leading: Text(
-                  'AP Calculus AB',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontSize: 27,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff70B3C3)),
-                ),
-                contentPadding: EdgeInsets.all(20),
+    return RelativeBuilder(
+      builder: (context, screenHeight, screenWidth, sy, sx) {
+        final username_field = TextField(
+            obscureText: false,
+            style: TextStyle(
+                fontSize: sx(34),
+                fontFamily: 'Benton',
+                fontWeight: FontWeight.normal,
+                color: Color(0xFFFCFCFC)),
+            decoration: InputDecoration(
+              suffixIconConstraints:
+                  BoxConstraints(minWidth: sx(40), minHeight: 0),
+              contentPadding: EdgeInsets.only(top: sy(8)),
+              suffixIcon: FaIcon(
+                FontAwesomeIcons.userAlt,
+                color: Color(0xFFFCFCFC),
+              ),
+              hintText: "Username",
+              hintStyle: TextStyle(color: Color(0xFFFCFCFC)),
+              focusColor: Color(0xFFFCFCFC),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Color(0xFFFCFCFC), width: sx(5))),
+            ));
+
+        final password_field = TextField(
+          obscureText: false,
+          style: TextStyle(
+              fontSize: sx(34),
+              fontFamily: 'Benton',
+              fontWeight: FontWeight.normal,
+              color: Color(0xFFFCFCFC)),
+          decoration: InputDecoration(
+              suffixIconConstraints:
+                  BoxConstraints(minWidth: sx(40), minHeight: 0),
+              suffixIcon: FaIcon(
+                FontAwesomeIcons.lock,
+                color: Color(0XFFFCFCFC),
+              ),
+              contentPadding: EdgeInsets.only(top: sy(8)),
+              hintText: "Password",
+              hintStyle: TextStyle(color: Color(0xFFFCFCFC)),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Color(0xFFFCFCFC), width: sx(5)))),
+        );
+        return Scaffold(
+          body: Center(
+            child: Container(
+              decoration: new BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                const Color(0XFF70B3C3),
+                const Color(0XFF74aecc)
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: sy(110),
+                  ),
+                  SizedBox(
+                      height: sy(80),
+                      child: Image.asset('logos/logoorange.png')),
+                  SizedBox(
+                    height: sy(20),
+                  ),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: EdgeInsets.only(left: sx(50)),
+                        width: sx(270),
+                        child: Text(
+                          "Please enter your PowerSchool information",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Color(0xFFFCFCFC)),
+                        ),
+                      )),
+                  Container(
+                    padding: EdgeInsets.only(left: sx(45), right: sx(45)),
+                    child: username_field,
+                  ),
+                  SizedBox(
+                    height: sy(10),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: sx(45), right: sx(45)),
+                    child: password_field,
+                  ),
+                  SizedBox(
+                    height: sy(10),
+                  ),
+                  RawMaterialButton(
+                    onPressed: () {},
+                    fillColor: Colors.white,
+                    child: Text("Login"),
+                    padding: EdgeInsets.all(15.0),
+                    shape: CircleBorder(),
+                  )
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

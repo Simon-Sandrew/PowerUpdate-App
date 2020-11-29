@@ -23,11 +23,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  relative_scale: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  font_awesome_flutter:
   
 
 dev_dependencies:
@@ -42,7 +44,10 @@ flutter:
   fonts:
     - family: 'Benton'
       fonts:
+        - asset: fonts/BentonSans Medium.ttf
         - asset: fonts/BentonSans Bold.ttf
+  assets:
+    - logos/logoorange.png
 
 
   # The following line ensures that the Material Icons font is
